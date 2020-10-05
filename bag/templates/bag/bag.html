@@ -26,10 +26,11 @@
                 <div class="table-responsive rounded"></div>
             {% else %}
                 <p class="lead mb-5">Your bag is empty.</p>
-                <a href="{% ur 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
+                <a href="{% url 'products' %}" class="btn btn-outline-black rounded-0 btn-lg">
                     <span class="icon">
                         <i class="fa fas-chevron-left"></i>
                     </span>
+                    <span class="text-uppercase">Keep shopping.</span>
                 </a>
             {% endif %}
         </div>
