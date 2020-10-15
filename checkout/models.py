@@ -50,7 +50,7 @@ class Order(models.Model):
     def update_total(self):
 
         """
-        Updte grand total each time a line item is added accounting fro delivery cost
+        Update grand total each time a line item is added accounting fro delivery cost
         """
 
         self.order_total = self.lineitems.aggregate(Sum('lineitem_total'))['lineitem_total__sum'] or 0 
@@ -60,7 +60,6 @@ class Order(models.Model):
             self.delivery_cost = 0
         self.grand_total = self.order_total + self.delivery_cost
         self.save()
-
 
     def __str__(self):
         return self.order_number
@@ -83,8 +82,3 @@ class OrderLineItem(models.Model):
 
     def __str__(self):
         return f'SKU {self.product.sku} on order {self.order.order_number}'
-
-
-
-
-
