@@ -52,6 +52,7 @@ INSTALLED_APPS = [
 
     # Other 
     'crispy_forms',
+    'sorages',
 
 ]
 
@@ -181,6 +182,25 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+if USE_AWS in os.environ:
+    # Bucket Config
+    AWS_STORAGE_BUCKET_NAME = 'jimbobding-boutique-ado-v1'
+    AWS_S3_REGION_NAME = 'EU(London)'
+    AWS_ACCESS_KEY_ID = os.environ.get('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = os.environ.get('AWS_SECRET_ACCESS_KEY')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+
+    # Static and media files
+    STATICFILES_STORAGE =  'custom_storages.StaticStorage'
+    STATICFILES_STORAGE = 'static'
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+    MEDIAFILES_LOACTION = 'media'
+
+    # Override static and media URLs in production
+    STATIC_URL = F'https://{AWS_S3_CUSTOM_DOMAIN}//{STATICFILES_LOCATION}'
+    MEDIA_URL = F'https://{AWS_S3_CUSTOM_DOMAIN}//{MEDIAFILES_LOCATION}'
+
 
 # Stripe
 FREE_DELIVERY_THRESHOLD = 50
