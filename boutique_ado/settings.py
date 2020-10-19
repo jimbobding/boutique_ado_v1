@@ -28,7 +28,7 @@ SECRET_KEY = 'vuws0ujha5a=z#xe&s*fy980*eu%6*s7wlgwq*&g*ef=lrmmhe'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['jimbobding-boutique-ado-v1.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -127,16 +127,17 @@ WSGI_APPLICATION = 'boutique_ado.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-# DATABASES = {
-#   'default': {
-#       'ENGINE': 'django.db.backends.sqlite3',
-#       'NAME': BASE_DIR / 'db.sqlite3',
-#   }
-#  }
-
-DATABASES = {
-     'default': dj_database_url.parse('postgres://iuerbfidkxngat:717fc6fe2fb3c23807097a6c23bfcf784b6eb605d07c44f40d8fee3c7e2771a2@ec2-54-75-246-118.eu-west-1.compute.amazonaws.com:5432/dbaik71kuqqkd7')
-}
+if 'DATABASE_URL' in os.environ:
+    DATABASES = {
+       ' default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
+    }
+else:
+ DATABASES = {
+   'default': {
+       'ENGINE': 'django.db.backends.sqlite3',
+       'NAME': BASE_DIR / 'db.sqlite3',
+   }
+  }
 
 
 # Password validation
