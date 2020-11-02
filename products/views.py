@@ -8,7 +8,6 @@ from .models import Product, Category
 from .forms import ProductForm
 
 
-
 def all_products(request):
     """ A view to show all products including sorting and searching quries  """
 
